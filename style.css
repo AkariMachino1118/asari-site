@@ -1,0 +1,114 @@
+/* ===== 共通スタイル（全ページで使う） ===== */
+:root {
+  --bg: #fafafa; --fg: #222; --sub: #666;
+  --card: #fff; --line: #e2e2e2; --accent: #d6336c; --accent-fg: #fff;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141416; --fg: #eee; --sub: #aaa;
+    --card: #1e1e22; --line: #33333a; --accent: #e8598b; --accent-fg: #fff;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic UI", sans-serif;
+  line-height: 1.7;
+}
+a { color: var(--accent); }
+img { max-width: 100%; height: auto; display: block; }
+
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+
+/* ヘッダー */
+.site-header { border-bottom: 1px solid var(--line); background: var(--card); }
+.site-header .wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding-top: 12px; padding-bottom: 12px; flex-wrap: wrap;
+}
+.site-title { font-size: 1.15rem; font-weight: 700; margin: 0; }
+.site-title a { color: var(--fg); text-decoration: none; }
+.site-nav { display: flex; gap: 16px; font-size: .9rem; flex-wrap: wrap; }
+.site-nav a { color: var(--sub); text-decoration: none; }
+.site-nav a:hover { color: var(--accent); }
+
+/* セクション */
+section { padding: 40px 0 8px; }
+h2 {
+  font-size: 1.2rem; margin: 0 0 16px; padding-left: 10px;
+  border-left: 4px solid var(--accent);
+}
+.lead { color: var(--sub); }
+
+/* キャラカード */
+.chara-grid {
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+.chara-card {
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: 10px; overflow: hidden;
+}
+.chara-card .thumb {
+  aspect-ratio: 3 / 4; background: var(--line);
+  display: grid; place-items: center; color: var(--sub); font-size: .8rem;
+}
+.chara-card .thumb img { width: 100%; height: 100%; object-fit: cover; }
+.chara-card .body { padding: 10px 12px 14px; }
+.chara-card h3 { font-size: 1rem; margin: 0 0 4px; }
+.chara-card p { font-size: .85rem; color: var(--sub); margin: 0; }
+
+/* 制作ログ */
+.log-list { list-style: none; padding: 0; margin: 0; }
+.log-list li {
+  display: grid; grid-template-columns: 6.5em 1fr; gap: 8px;
+  padding: 10px 0; border-bottom: 1px solid var(--line);
+}
+.log-list time { color: var(--sub); font-size: .9rem; }
+
+/* リンク */
+.link-list { display: grid; gap: 10px; padding: 0; margin: 0; list-style: none; }
+.link-list a {
+  display: block; padding: 12px 16px; background: var(--card);
+  border: 1px solid var(--line); border-radius: 8px;
+  color: var(--fg); text-decoration: none;
+}
+.link-list a:hover { border-color: var(--accent); }
+.link-list small { color: var(--sub); margin-left: 6px; }
+
+/* フッター（成人向けへの入口はここだけ） */
+.site-footer {
+  margin-top: 48px; border-top: 1px solid var(--line);
+  padding: 24px 0 40px; font-size: .85rem; color: var(--sub);
+}
+.site-footer .adult-link { color: var(--sub); }
+
+/* ===== 年齢確認ゲート（成人向けページ用） ===== */
+html.gate-locked #site { display: none; }
+html:not(.gate-locked) #age-gate { display: none; }
+#age-gate { min-height: 100vh; display: grid; place-items: center; padding: 16px; }
+.gate-card {
+  width: 100%; max-width: 420px; background: var(--card);
+  border: 1px solid var(--line); border-radius: 12px;
+  padding: 32px 24px; text-align: center;
+}
+.gate-card h1 { font-size: 1.3rem; margin: 0 0 8px; }
+.gate-badge {
+  display: inline-block; font-weight: 700; font-size: .85rem;
+  border: 2px solid var(--accent); color: var(--accent);
+  border-radius: 6px; padding: 2px 10px; margin-bottom: 16px;
+}
+.gate-card p { margin: 0 0 8px; }
+.gate-card .note { color: var(--sub); font-size: .85rem; }
+.gate-buttons { display: grid; gap: 12px; margin-top: 24px; }
+.gate-buttons button, .gate-buttons a {
+  display: block; width: 100%; padding: 14px; border-radius: 8px;
+  font-size: 1rem; font-weight: 700; cursor: pointer;
+  text-decoration: none; text-align: center; font-family: inherit;
+}
+#gate-yes { background: var(--accent); color: var(--accent-fg); border: none; }
+#gate-no { background: transparent; color: var(--fg); border: 1px solid var(--line); }
+.gate-remember {
+  display: flex; gap: 8px; justify-content: center; align-items: center;
+  margin-top: 16px; font-size: .85rem; color: var(--sub);
+}
