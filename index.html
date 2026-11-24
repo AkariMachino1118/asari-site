@@ -13,9 +13,9 @@
 <link rel="canonical" href="https://aiasar.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yomogi&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
 <!-- CSSを変えたら ?v= の数字を上げる（古いCSSが残らないように） -->
-<link rel="stylesheet" href="style.css?v=2">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -25,122 +25,90 @@
   <div class="wrap">
     <p class="site-title"><a href="./">あさりちゃんの部屋</a></p>
     <nav class="site-nav">
-      <a href="#chara">Characters</a>
-      <a href="#log">Log</a>
-      <a href="#links">Links</a>
+      <a href="#chara">キャラクター</a>
+      <a href="#log">制作ログ</a>
+      <a href="#links">リンク</a>
     </nav>
   </div>
 </header>
 
 <main>
 
-  <section class="hero">
-    <div class="wrap">
-      <p class="hero-en">Asari's Room</p>
-      <h1 class="hero-title">あさりちゃんの部屋</h1>
-      <p class="hero-lead">オリジナルキャラクターのイラストと、<br>ゲーム制作の記録を置いています。</p>
-      <ul class="hero-faces" aria-hidden="true">
-        <li><img src="img/mashiro-miu.webp" alt=""></li>
-        <li><img src="img/ayase-natsu.webp" alt=""></li>
-        <li><img src="img/aizawa-shino.webp" alt=""></li>
-        <li><img src="img/mizushima-kei.webp" alt=""></li>
-        <li><img src="img/miura-hitomi.webp" alt=""></li>
-        <li><img src="img/kisaragi-sayo.webp" alt=""></li>
-      </ul>
-    </div>
+  <section class="hero wrap">
+    <h1 class="hero-title">あさりちゃんの部屋</h1>
+    <p class="hero-lead">AIで描いているオリジナルキャラクターたちと、<br>いま作っているゲームの記録です。</p>
   </section>
 
   <section id="chara" class="wrap">
-    <div class="sec-head">
-      <p class="sec-en">Characters</p>
-      <h2>キャラクター</h2>
-    </div>
-    <div class="chara-grid">
+    <h2>キャラクター</h2>
+    <div class="wall">
       <!-- ▼ キャラ1人分。画像は img/<id>.webp -->
-      <article class="chara-card" id="mashiro-miu">
-        <figure class="thumb">
-          <img src="img/mashiro-miu.webp" alt="真城 美羽" loading="lazy">
-          <figcaption><span class="kana">ましろ みう</span><span class="name">真城 美羽</span></figcaption>
+      <article class="chara" id="mashiro-miu">
+        <figure class="cheki">
+          <img src="img/mashiro-miu.webp" alt="真城 美羽の立ち絵" loading="lazy">
+          <figcaption><span class="name">真城 美羽</span><span class="kana">ましろ みう</span></figcaption>
         </figure>
-        <div class="body">
-          <p class="catch">金髪ギャル</p>
-          <p class="desc">金髪ゆるふわロングがトレードマーク。ノリが良くて人懐っこい、場をぱっと明るくするムードメーカー。</p>
-        </div>
+        <p class="catch">金髪ギャル</p>
+        <p class="desc">金髪ゆるふわロングがトレードマーク。ノリが良くて人懐っこい、場をぱっと明るくするムードメーカー。</p>
       </article>
       <!-- ▲ ここまで -->
-      <article class="chara-card" id="ayase-natsu">
-        <figure class="thumb">
-          <img src="img/ayase-natsu.webp" alt="綾瀬 奈津" loading="lazy">
-          <figcaption><span class="kana">あやせ なつ</span><span class="name">綾瀬 奈津</span></figcaption>
+      <article class="chara" id="ayase-natsu">
+        <figure class="cheki">
+          <img src="img/ayase-natsu.webp" alt="綾瀬 奈津の立ち絵" loading="lazy">
+          <figcaption><span class="name">綾瀬 奈津</span><span class="kana">あやせ なつ</span></figcaption>
         </figure>
-        <div class="body">
-          <p class="catch">黒髪ボブの大人女子</p>
-          <p class="desc">柔らかい物腰と、ふとした瞬間に見せる表情が魅力。風の強い日はちょっと要注意。</p>
-        </div>
+        <p class="catch">黒髪ボブの大人女子</p>
+        <p class="desc">柔らかい物腰と、ふとした瞬間に見せる表情が魅力。風の強い日はちょっと要注意。</p>
       </article>
-      <article class="chara-card" id="aizawa-shino">
-        <figure class="thumb">
-          <img src="img/aizawa-shino.webp" alt="相沢 志乃" loading="lazy">
-          <figcaption><span class="kana">あいざわ しの</span><span class="name">相沢 志乃</span></figcaption>
+      <article class="chara" id="aizawa-shino">
+        <figure class="cheki">
+          <img src="img/aizawa-shino.webp" alt="相沢 志乃の立ち絵" loading="lazy">
+          <figcaption><span class="name">相沢 志乃</span><span class="kana">あいざわ しの</span></figcaption>
         </figure>
-        <div class="body">
-          <p class="catch">無自覚系の無表情さん</p>
-          <p class="desc">落ち着いていて媚びない、少し天然。本人は何も意識していないのに、なぜか目が離せない。</p>
-        </div>
+        <p class="catch">無自覚系の無表情さん</p>
+        <p class="desc">落ち着いていて媚びない、少し天然。本人は何も意識していないのに、なぜか目が離せない。</p>
       </article>
-      <article class="chara-card" id="mizushima-kei">
-        <figure class="thumb">
-          <img src="img/mizushima-kei.webp" alt="水嶋 ケイ" loading="lazy">
-          <figcaption><span class="kana">みずしま けい</span><span class="name">水嶋 ケイ</span></figcaption>
+      <article class="chara" id="mizushima-kei">
+        <figure class="cheki">
+          <img src="img/mizushima-kei.webp" alt="水嶋 ケイの立ち絵" loading="lazy">
+          <figcaption><span class="name">水嶋 ケイ</span><span class="kana">みずしま けい</span></figcaption>
         </figure>
-        <div class="body">
-          <p class="catch">グラビアアイドル</p>
-          <p class="desc">見せ方を知り尽くした大人の余裕。控えめな妹・るいとは対照的な、華やかなお姉さん。</p>
-        </div>
+        <p class="catch">グラビアアイドル</p>
+        <p class="desc">見せ方を知り尽くした大人の余裕。控えめな妹・るいとは対照的な、華やかなお姉さん。</p>
       </article>
-      <article class="chara-card" id="miura-hitomi">
-        <figure class="thumb">
-          <img src="img/miura-hitomi.webp" alt="三浦 ひとみ" loading="lazy">
-          <figcaption><span class="kana">みうら ひとみ</span><span class="name">三浦 ひとみ</span></figcaption>
+      <article class="chara" id="miura-hitomi">
+        <figure class="cheki">
+          <img src="img/miura-hitomi.webp" alt="三浦 ひとみの立ち絵" loading="lazy">
+          <figcaption><span class="name">三浦 ひとみ</span><span class="kana">みうら ひとみ</span></figcaption>
         </figure>
-        <div class="body">
-          <p class="catch">保健室の先生</p>
-          <p class="desc">メガネとショートカットがよく似合う、包容力たっぷりのお姉さん先生。不調も悩みも、笑顔で受け止めてくれる。</p>
-        </div>
+        <p class="catch">保健室の先生</p>
+        <p class="desc">メガネとショートカットがよく似合う、包容力たっぷりのお姉さん先生。不調も悩みも、笑顔で受け止めてくれる。</p>
       </article>
-      <article class="chara-card" id="kisaragi-sayo">
-        <figure class="thumb">
-          <img src="img/kisaragi-sayo.webp" alt="如月 紗夜" loading="lazy">
-          <figcaption><span class="kana">きさらぎ さよ</span><span class="name">如月 紗夜</span></figcaption>
+      <article class="chara" id="kisaragi-sayo">
+        <figure class="cheki">
+          <img src="img/kisaragi-sayo.webp" alt="如月 紗夜の立ち絵" loading="lazy">
+          <figcaption><span class="name">如月 紗夜</span><span class="kana">きさらぎ さよ</span></figcaption>
         </figure>
-        <div class="body">
-          <p class="catch">旅館の女将</p>
-          <p class="desc">黒髪のまとめ髪に和装が映える、上品で落ち着いた和風美人。老舗旅館を切り盛りしている。</p>
-        </div>
+        <p class="catch">旅館の女将</p>
+        <p class="desc">黒髪のまとめ髪に和装が映える、上品で落ち着いた和風美人。老舗旅館を切り盛りしている。</p>
       </article>
     </div>
   </section>
 
   <section id="log" class="wrap">
-    <div class="sec-head">
-      <p class="sec-en">Log</p>
-      <h2>制作ログ</h2>
-    </div>
+    <h2>制作ログ</h2>
     <ul class="log-list">
       <!-- 新しいものを上に追加 -->
-      <li><time datetime="2026-11-25">2026.11.25</time><span>キャラクター紹介に6人の立ち絵を追加しました。</span></li>
-      <li><time datetime="2026-11-23">2026.11.23</time><span>サイトを開設しました。</span></li>
+      <li><time datetime="2026-11-25">11月25日</time><span>キャラクター紹介に6人の立ち絵を追加しました。</span></li>
+      <li><time datetime="2026-11-23">11月23日</time><span>サイトを開設しました。</span></li>
     </ul>
   </section>
 
   <section id="links" class="wrap">
-    <div class="sec-head">
-      <p class="sec-en">Links</p>
-      <h2>リンク</h2>
-    </div>
+    <h2>リンク</h2>
     <ul class="link-list">
-      <li><a href="https://x.com/aiASarichan" target="_blank" rel="noopener"><span class="link-name">X</span><span class="link-sub">@aiASarichan ・ 更新情報はこちら</span></a></li>
-      <li><a href="https://www.pixiv.net/users/7204909" target="_blank" rel="noopener"><span class="link-name">pixiv</span><span class="link-sub">イラストまとめ</span></a></li>
+      <li><a href="https://x.com/aiASarichan" target="_blank" rel="noopener">X（@aiASarichan）</a><span>更新のお知らせはこちら</span></li>
+      <li><a href="https://www.pixiv.net/users/7204909" target="_blank" rel="noopener">pixiv</a><span>イラストをまとめて見られます</span></li>
     </ul>
   </section>
 
@@ -150,7 +118,7 @@
   <div class="wrap">
     <!-- 成人向けへの入口はここだけ。目立たせない・画像を使わない -->
     <p><a class="adult-link" href="r18/">成人向けコンテンツ（18歳以上）</a></p>
-    <p class="copy">&copy; あさりちゃんの部屋</p>
+    <p>&copy; あさりちゃんの部屋</p>
   </div>
 </footer>
 
