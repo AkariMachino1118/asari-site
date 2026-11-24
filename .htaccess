@@ -5,3 +5,8 @@ Options -Indexes
 RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# 自動反映用の管理ファイルは外から見せない
+<Files ".ftp-deploy-sync-state.json">
+  Require all denied
+</Files>
