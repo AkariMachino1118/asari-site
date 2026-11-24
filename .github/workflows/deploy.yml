@@ -1,0 +1,34 @@
+# main に push したら、mixhost の public_html へ自動でアップロードする
+name: Deploy to mixhost
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # Actions 画面から手動実行もできる
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Upload via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          # FTPアカウントのディレクトリを public_html にしてあるので、その直下に置く
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            docs/**
+            README.md
