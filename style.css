@@ -1,6 +1,6 @@
 /* ===== あさりちゃんの部屋 ===================================
    コンセプト：落ち着いたファッション誌
-   ・主役は表紙（表紙キャラ＋明朝のロゴ）。飾りは足さない
+   ・主役は文字だけのタイトルロゴ（明朝）。飾りは足さない
    ・中のページは誌面のように静かに。紅色は「キャッチ」にだけ使う
    ・明朝（Zen Old Mincho）は、ロゴ・見出し・キャラ名にだけ使う
    ========================================================== */
@@ -12,7 +12,6 @@
   --magenta: #b8365f;     /* キャッチの色（くすんだ紅） */
   --yellow: #ffe45c;      /* 表紙のマーカー */
   --link: #2f4aa0;
-  --cover-bg: #e1dde8;    /* 表紙キャラ画像の背景色（水嶋ケイ） */
   --display: "Zen Old Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
   --font: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", sans-serif;
 }
@@ -41,33 +40,25 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 
 .wrap { max-width: 920px; margin: 0 auto; padding: 0 16px; }
 
-/* ===== 表紙（ここだけ主役） ===== */
-.front { padding-top: 16px; display: grid; gap: 28px; }
-@media (min-width: 760px) {
-  .front { grid-template-columns: minmax(0, 440px) 1fr; align-items: end; gap: 48px; padding-top: 40px; }
-}
-.cover {
-  container-type: inline-size;
-  position: relative; overflow: hidden;
-  aspect-ratio: 3 / 4.3; background: var(--cover-bg); color: #1b1a22;
-  box-shadow: 0 18px 40px -24px rgba(20, 16, 30, .55);
-}
-.cover-star {
-  position: absolute; bottom: 0; right: -8%; width: 90%;
-}
-.cover-issue {
-  position: absolute; top: 5cqw; left: 6cqw; right: 6cqw;
+/* ===== 表紙：文字だけのタイトルロゴ（ここだけ主役） ===== */
+.front { padding-top: 28px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 36px; }
+.masthead { border-top: 3px solid var(--ink); padding-top: 10px; }
+.issue {
   display: flex; justify-content: space-between;
-  font-size: 2.8cqw; letter-spacing: .12em; color: #3a3742;
+  font-size: .74rem; letter-spacing: .14em; color: var(--sub);
 }
-.cover-logo {
-  position: absolute; top: 10cqw; left: 6cqw;
-  font-family: var(--display); font-weight: 700; font-size: 7.4cqw; line-height: 1.2;
-  letter-spacing: .08em; white-space: nowrap;
+.logo {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(1.9rem, 9vw, 5.2rem); line-height: 1.15;
+  letter-spacing: .04em; margin: 18px 0 0; white-space: nowrap;
+  font-feature-settings: "palt";
 }
-.cover-credit {
-  position: absolute; left: 6cqw; bottom: 6cqw;
-  writing-mode: vertical-rl; font-size: 2.4cqw; letter-spacing: .24em; color: #3a3742;
+.tagline {
+  margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--rule);
+  color: var(--sub); font-size: .88rem; max-width: 34em;
+}
+@media (min-width: 760px) {
+  .front { padding-top: 48px; gap: 48px; }
 }
 
 /* 目次 */
@@ -81,7 +72,6 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 .contents a:hover .c-name { color: var(--magenta); }
 .c-name { font-weight: 700; font-size: 1rem; }
 .c-note { color: var(--sub); font-size: .8rem; }
-.contents-lead { margin-top: 16px; color: var(--sub); font-size: .85rem; }
 
 /* ===== 特集の見出し ===== */
 main > section.wrap + section.wrap { margin-top: 72px; }
