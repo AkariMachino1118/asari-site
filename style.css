@@ -1,19 +1,19 @@
 /* ===== あさりちゃんの部屋 ===================================
-   コンセプト：グラビア誌・ファッション誌
-   ・主役は表紙（ロゴ＋表紙キャラ＋表紙の見出し）。派手にするのはここだけ
-   ・中のページは誌面のように静かに。マゼンタは「キャッチ」にだけ使う
-   ・極太の Dela Gothic One は、ロゴ・見出し・キャラ名にだけ使う
+   コンセプト：落ち着いたファッション誌
+   ・主役は表紙（表紙キャラ＋明朝のロゴ）。飾りは足さない
+   ・中のページは誌面のように静かに。紅色は「キャッチ」にだけ使う
+   ・明朝（Zen Old Mincho）は、ロゴ・見出し・キャラ名にだけ使う
    ========================================================== */
 :root {
   --paper: #f6f5f2;       /* 誌面の紙 */
   --ink: #1b1a22;
   --sub: #66646d;
   --rule: #d9d7d2;
-  --magenta: #d6246e;     /* 表紙の見出し・キャッチ */
+  --magenta: #b8365f;     /* キャッチの色（くすんだ紅） */
   --yellow: #ffe45c;      /* 表紙のマーカー */
   --link: #2f4aa0;
   --cover-bg: #e1dde8;    /* 表紙キャラ画像の背景色（水嶋ケイ） */
-  --display: "Dela Gothic One", "Hiragino Sans", sans-serif;
+  --display: "Zen Old Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
   --font: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", sans-serif;
 }
 @media (prefers-color-scheme: dark) {
@@ -22,7 +22,7 @@
     --ink: #eeedf2;
     --sub: #a4a1ab;
     --rule: #34323b;
-    --magenta: #ff5c98;
+    --magenta: #e9849f;
     --link: #a9b9f0;
   }
 }
@@ -53,45 +53,25 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
   box-shadow: 0 18px 40px -24px rgba(20, 16, 30, .55);
 }
 .cover-star {
-  position: absolute; bottom: 0; right: -9%; width: 96%;
+  position: absolute; bottom: 0; right: -8%; width: 90%;
 }
 .cover-issue {
-  position: absolute; top: 4cqw; left: 5cqw; right: 5cqw;
-  font-weight: 700; font-size: 3cqw; letter-spacing: .08em;
-  border-bottom: .5cqw solid #1b1a22; padding-bottom: 1cqw;
+  position: absolute; top: 5cqw; left: 6cqw; right: 6cqw;
+  display: flex; justify-content: space-between;
+  font-size: 2.8cqw; letter-spacing: .12em; color: #3a3742;
 }
 .cover-logo {
-  position: absolute; top: 10.5cqw; left: 4cqw;
-  font-family: var(--display); font-size: 10cqw; line-height: 1.05;
-  letter-spacing: -.02em; white-space: nowrap;
-}
-.cover-line { position: absolute; left: 5cqw; line-height: 1.2; font-weight: 700; }
-.cover-line-main { top: 40%; display: flex; flex-direction: column; align-items: flex-start; }
-.cover-line-main .big {
-  font-family: var(--display); font-size: 11cqw; color: var(--magenta);
-  transform: rotate(-4deg); transform-origin: left bottom;
-  -webkit-text-stroke: 1.6cqw #fff; paint-order: stroke fill;
-}
-.cover-line-main .big small {
-  font-family: var(--font); font-weight: 700; font-size: 5.4cqw; margin-right: .6cqw;
-}
-.cover-line-main .mark {
-  margin-top: 2cqw; font-size: 4.8cqw; background: var(--yellow); padding: .6cqw 2cqw;
-}
-.cover-line-sub {
-  top: 62%; font-size: 3.8cqw; background: #fff; padding: 1cqw 2.4cqw;
-}
-.cover-line-sub b { color: var(--magenta); }
-.cover-line-game {
-  bottom: 5cqw; font-size: 3.6cqw; color: #fff; background: #1b1a22; padding: 1cqw 2.4cqw;
+  position: absolute; top: 10cqw; left: 6cqw;
+  font-family: var(--display); font-weight: 700; font-size: 7.4cqw; line-height: 1.2;
+  letter-spacing: .08em; white-space: nowrap;
 }
 .cover-credit {
-  position: absolute; right: 3cqw; bottom: 4cqw;
-  writing-mode: vertical-rl; font-size: 2.6cqw; font-weight: 700; letter-spacing: .2em;
+  position: absolute; left: 6cqw; bottom: 6cqw;
+  writing-mode: vertical-rl; font-size: 2.4cqw; letter-spacing: .24em; color: #3a3742;
 }
 
 /* 目次 */
-.contents-title { font-family: var(--display); font-size: 1.5rem; line-height: 1.2; }
+.contents-title { font-family: var(--display); font-weight: 700; font-size: 1.35rem; line-height: 1.2; letter-spacing: .1em; }
 .contents ul { list-style: none; padding: 0; margin: 14px 0 0; border-top: 2px solid var(--ink); }
 .contents li { border-bottom: 1px solid var(--rule); }
 .contents a {
@@ -105,7 +85,7 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 
 /* ===== 特集の見出し ===== */
 main > section.wrap + section.wrap { margin-top: 72px; }
-.feature-title { font-family: var(--display); font-size: clamp(1.6rem, 7vw, 2.2rem); line-height: 1.2; }
+.feature-title { font-family: var(--display); font-weight: 700; font-size: clamp(1.5rem, 6.4vw, 2rem); line-height: 1.3; letter-spacing: .06em; }
 .feature-lead { color: var(--sub); font-size: .85rem; margin-top: 4px; }
 
 /* ===== プロフィール（誌面） ===== */
@@ -123,7 +103,7 @@ main > section.wrap + section.wrap { margin-top: 72px; }
   .profile .desc { font-size: .95rem; }
   .profile .catch { font-size: 1rem; }
 }
-.profile .name { font-family: var(--display); font-size: clamp(1.25rem, 5.6vw, 1.9rem); line-height: 1.25; }
+.profile .name { font-family: var(--display); font-weight: 700; font-size: clamp(1.3rem, 5.6vw, 1.9rem); line-height: 1.3; letter-spacing: .06em; }
 .profile .roman { font-size: .72rem; letter-spacing: .16em; color: var(--sub); margin-top: 2px; }
 .profile .catch { color: var(--magenta); font-weight: 700; font-size: .9rem; margin-top: 12px; }
 .profile .desc { font-size: .82rem; line-height: 1.85; margin-top: 4px; }
@@ -156,12 +136,12 @@ main > section.wrap + section.wrap { margin-top: 72px; }
   display: flex; align-items: center; justify-content: space-between;
   gap: 12px; min-height: 52px; flex-wrap: wrap;
 }
-.site-title { font-family: var(--display); font-size: 1.05rem; white-space: nowrap; }
+.site-title { font-family: var(--display); font-weight: 700; font-size: 1.05rem; letter-spacing: .06em; white-space: nowrap; }
 .site-title a { color: var(--ink); text-decoration: none; }
 .site-nav { display: flex; gap: 14px; font-size: .82rem; }
 .site-nav a { color: var(--sub); }
 #site main section { padding: 40px 0 8px; }
-#site main h2 { font-family: var(--display); font-size: 1.5rem; margin-bottom: 12px; }
+#site main h2 { font-family: var(--display); font-weight: 700; font-size: 1.4rem; margin-bottom: 12px; }
 
 /* ===== 年齢確認ゲート（成人向けページ用） ===== */
 html.gate-locked #site { display: none; }
@@ -172,7 +152,7 @@ html:not(.gate-locked) #age-gate { display: none; }
   border-top: 6px solid var(--magenta); padding: 32px 24px; text-align: center;
   box-shadow: 0 18px 40px -24px rgba(20, 16, 30, .55);
 }
-.gate-card h1 { font-family: var(--display); font-size: 1.6rem; margin: 0 0 12px; }
+.gate-card h1 { font-family: var(--display); font-weight: 700; font-size: 1.5rem; letter-spacing: .08em; margin: 0 0 12px; }
 .gate-badge {
   display: inline-block; font-weight: 700; font-size: .8rem;
   background: var(--magenta); color: #fff; padding: 0 10px; margin-bottom: 14px;
