@@ -13,99 +13,116 @@
 <link rel="canonical" href="https://aiasar.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yomogi&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
 <!-- CSSを変えたら ?v= の数字を上げる（古いCSSが残らないように） -->
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
 <!-- ※このページは全年齢向け。pixiv・XのプロフにはこのページのURLを貼る -->
 
-<header class="site-header">
-  <div class="wrap">
-    <p class="site-title"><a href="./">あさりちゃんの部屋</a></p>
-    <nav class="site-nav">
-      <a href="#chara">キャラクター</a>
-      <a href="#log">制作ログ</a>
-      <a href="#links">リンク</a>
-    </nav>
-  </div>
-</header>
-
 <main>
 
-  <section class="hero wrap">
-    <h1 class="hero-title">あさりちゃんの部屋</h1>
-    <p class="hero-lead">AIで描いているオリジナルキャラクターたちと、<br>いま作っているゲームの記録です。</p>
+  <!-- ===== 表紙 ===== -->
+  <section class="front wrap">
+    <div class="cover">
+      <!-- 表紙のキャラを変えるときは、画像と --cover-bg（画像の背景色）と表紙クレジットを変える -->
+      <img class="cover-star" src="img/mizushima-kei.webp" alt="表紙：水嶋 ケイ">
+      <p class="cover-issue">vol.01　2026年 冬号</p>
+      <h1 class="cover-logo">あさりちゃんの部屋</h1>
+      <p class="cover-line cover-line-main"><span class="big"><small>総勢</small>6名</span><span class="mark">キャラクター大図鑑</span></p>
+      <p class="cover-line cover-line-sub">新顔 <b>保健室の先生</b> が登場</p>
+      <p class="cover-line cover-line-game">ゲーム、ただいま制作中</p>
+      <p class="cover-credit">表紙　水嶋 ケイ</p>
+    </div>
+
+    <nav class="contents" aria-label="目次">
+      <h2 class="contents-title">目次</h2>
+      <ul>
+        <li><a href="#chara"><span class="c-name">キャラクター大図鑑</span><span class="c-note">6人のプロフィール</span></a></li>
+        <li><a href="#log"><span class="c-name">制作ログ</span><span class="c-note">サイトとゲームの更新記録</span></a></li>
+        <li><a href="#links"><span class="c-name">リンク</span><span class="c-note">Xとpixiv</span></a></li>
+      </ul>
+      <p class="contents-lead">AIで描いているオリジナルキャラクターたちと、いま作っているゲームの記録です。</p>
+    </nav>
   </section>
 
+  <!-- ===== キャラクター大図鑑 ===== -->
   <section id="chara" class="wrap">
-    <h2>キャラクター</h2>
-    <div class="wall">
-      <!-- ▼ キャラ1人分。画像は img/<id>.webp -->
-      <article class="chara" id="mashiro-miu">
-        <figure class="cheki">
-          <img src="img/mashiro-miu.webp" alt="真城 美羽の立ち絵" loading="lazy">
-          <figcaption><span class="name">真城 美羽</span><span class="kana">ましろ みう</span></figcaption>
-        </figure>
+    <h2 class="feature-title">キャラクター大図鑑</h2>
+    <p class="feature-lead">総勢6名のプロフィール</p>
+
+    <!-- ▼ キャラ1人分。画像は img/<id>.webp。左右は自動で互い違いになる -->
+    <article class="profile" id="mashiro-miu">
+      <img src="img/mashiro-miu.webp" alt="真城 美羽の立ち絵" loading="lazy">
+      <div class="profile-text">
+        <h3 class="name">真城 美羽</h3>
+        <p class="roman">Miu Mashiro</p>
         <p class="catch">金髪ギャル</p>
         <p class="desc">金髪ゆるふわロングがトレードマーク。ノリが良くて人懐っこい、場をぱっと明るくするムードメーカー。</p>
-      </article>
-      <!-- ▲ ここまで -->
-      <article class="chara" id="ayase-natsu">
-        <figure class="cheki">
-          <img src="img/ayase-natsu.webp" alt="綾瀬 奈津の立ち絵" loading="lazy">
-          <figcaption><span class="name">綾瀬 奈津</span><span class="kana">あやせ なつ</span></figcaption>
-        </figure>
+      </div>
+    </article>
+    <!-- ▲ ここまで -->
+    <article class="profile" id="ayase-natsu">
+      <img src="img/ayase-natsu.webp" alt="綾瀬 奈津の立ち絵" loading="lazy">
+      <div class="profile-text">
+        <h3 class="name">綾瀬 奈津</h3>
+        <p class="roman">Natsu Ayase</p>
         <p class="catch">黒髪ボブの大人女子</p>
         <p class="desc">柔らかい物腰と、ふとした瞬間に見せる表情が魅力。風の強い日はちょっと要注意。</p>
-      </article>
-      <article class="chara" id="aizawa-shino">
-        <figure class="cheki">
-          <img src="img/aizawa-shino.webp" alt="相沢 志乃の立ち絵" loading="lazy">
-          <figcaption><span class="name">相沢 志乃</span><span class="kana">あいざわ しの</span></figcaption>
-        </figure>
+      </div>
+    </article>
+    <article class="profile" id="aizawa-shino">
+      <img src="img/aizawa-shino.webp" alt="相沢 志乃の立ち絵" loading="lazy">
+      <div class="profile-text">
+        <h3 class="name">相沢 志乃</h3>
+        <p class="roman">Shino Aizawa</p>
         <p class="catch">無自覚系の無表情さん</p>
         <p class="desc">落ち着いていて媚びない、少し天然。本人は何も意識していないのに、なぜか目が離せない。</p>
-      </article>
-      <article class="chara" id="mizushima-kei">
-        <figure class="cheki">
-          <img src="img/mizushima-kei.webp" alt="水嶋 ケイの立ち絵" loading="lazy">
-          <figcaption><span class="name">水嶋 ケイ</span><span class="kana">みずしま けい</span></figcaption>
-        </figure>
+      </div>
+    </article>
+    <article class="profile" id="mizushima-kei">
+      <img src="img/mizushima-kei.webp" alt="水嶋 ケイの立ち絵" loading="lazy">
+      <div class="profile-text">
+        <h3 class="name">水嶋 ケイ</h3>
+        <p class="roman">Kei Mizushima</p>
         <p class="catch">グラビアアイドル</p>
         <p class="desc">見せ方を知り尽くした大人の余裕。控えめな妹・るいとは対照的な、華やかなお姉さん。</p>
-      </article>
-      <article class="chara" id="miura-hitomi">
-        <figure class="cheki">
-          <img src="img/miura-hitomi.webp" alt="三浦 ひとみの立ち絵" loading="lazy">
-          <figcaption><span class="name">三浦 ひとみ</span><span class="kana">みうら ひとみ</span></figcaption>
-        </figure>
+      </div>
+    </article>
+    <article class="profile" id="miura-hitomi">
+      <img src="img/miura-hitomi.webp" alt="三浦 ひとみの立ち絵" loading="lazy">
+      <div class="profile-text">
+        <h3 class="name">三浦 ひとみ</h3>
+        <p class="roman">Hitomi Miura</p>
         <p class="catch">保健室の先生</p>
         <p class="desc">メガネとショートカットがよく似合う、包容力たっぷりのお姉さん先生。不調も悩みも、笑顔で受け止めてくれる。</p>
-      </article>
-      <article class="chara" id="kisaragi-sayo">
-        <figure class="cheki">
-          <img src="img/kisaragi-sayo.webp" alt="如月 紗夜の立ち絵" loading="lazy">
-          <figcaption><span class="name">如月 紗夜</span><span class="kana">きさらぎ さよ</span></figcaption>
-        </figure>
+      </div>
+    </article>
+    <article class="profile" id="kisaragi-sayo">
+      <img src="img/kisaragi-sayo.webp" alt="如月 紗夜の立ち絵" loading="lazy">
+      <div class="profile-text">
+        <h3 class="name">如月 紗夜</h3>
+        <p class="roman">Sayo Kisaragi</p>
         <p class="catch">旅館の女将</p>
         <p class="desc">黒髪のまとめ髪に和装が映える、上品で落ち着いた和風美人。老舗旅館を切り盛りしている。</p>
-      </article>
-    </div>
+      </div>
+    </article>
   </section>
 
+  <!-- ===== 制作ログ ===== -->
   <section id="log" class="wrap">
-    <h2>制作ログ</h2>
+    <h2 class="feature-title">制作ログ</h2>
     <ul class="log-list">
       <!-- 新しいものを上に追加 -->
-      <li><time datetime="2026-11-25">11月25日</time><span>キャラクター紹介に6人の立ち絵を追加しました。</span></li>
+      <li><time datetime="2026-11-25">11月25日</time><span>キャラクター大図鑑に6人の立ち絵を追加しました。</span></li>
       <li><time datetime="2026-11-23">11月23日</time><span>サイトを開設しました。</span></li>
     </ul>
   </section>
 
+  <!-- ===== リンク ===== -->
   <section id="links" class="wrap">
-    <h2>リンク</h2>
+    <h2 class="feature-title">リンク</h2>
     <ul class="link-list">
       <li><a href="https://x.com/aiASarichan" target="_blank" rel="noopener">X（@aiASarichan）</a><span>更新のお知らせはこちら</span></li>
       <li><a href="https://www.pixiv.net/users/7204909" target="_blank" rel="noopener">pixiv</a><span>イラストをまとめて見られます</span></li>
