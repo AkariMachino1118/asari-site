@@ -1,3 +1,6 @@
+# ファイル一覧（Index of /）を見せない
+Options -Indexes
+
 # http でアクセスされたら https に転送する
 RewriteEngine On
 RewriteCond %{HTTPS} off
