@@ -56,6 +56,8 @@ h2 {
 .chara-card .thumb img { width: 100%; height: 100%; object-fit: cover; }
 .chara-card .body { padding: 10px 12px 14px; }
 .chara-card h3 { font-size: 1rem; margin: 0 0 4px; }
+.chara-card .kana { display: block; font-size: .7rem; font-weight: 400; color: var(--sub); }
+.chara-card .catch { color: var(--accent); font-weight: 700; font-size: .8rem; margin: 0 0 4px; }
 .chara-card p { font-size: .85rem; color: var(--sub); margin: 0; }
 
 /* 制作ログ */
