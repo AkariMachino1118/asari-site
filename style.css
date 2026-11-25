@@ -112,7 +112,20 @@ main > section.wrap + section.wrap { margin-top: 72px; }
 .link-list a { font-weight: 700; }
 .link-list span { color: var(--sub); font-size: .82rem; }
 
-/* ===== フッター（成人向けへの入口はここだけ） ===== */
+/* ===== 成人向けへの入口 ===== */
+.adult-note { color: var(--sub); font-size: .85rem; margin-top: 8px; }
+.adult-button {
+  display: inline-flex; align-items: center; gap: 12px; margin-top: 16px;
+  padding: 12px 22px 12px 12px; border: 1.5px solid var(--ink);
+  color: var(--ink); font-weight: 700; text-decoration: none;
+}
+.adult-button:hover { background: var(--ink); color: var(--paper); }
+.adult-badge {
+  background: var(--magenta); color: #fff; font-size: .75rem; letter-spacing: .06em;
+  padding: 2px 8px;
+}
+
+/* ===== フッター ===== */
 .site-footer {
   margin-top: 88px; border-top: 1px solid var(--rule);
   padding: 24px 0 40px; font-size: .76rem; color: var(--sub);
