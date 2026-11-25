@@ -13,13 +13,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "characters.json"
-CSS_VERSION = "8"  # style.css を変えたら上げる
+CSS_VERSION = "9"  # style.css を変えたら上げる
 # pixiv の「タイトル・キャプション」検索。作品タイトルにキャラ名（スペースなし）が入っている前提
 PIXIV_SEARCH = "https://www.pixiv.net/tags/{q}/artworks?s_mode=s_tc"
 IMG_EXT = {".webp", ".jpg", ".jpeg", ".png"}
 
-FONTS = ("https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@600;700"
-         "&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap")
+FONTS = "https://fonts.googleapis.com/css2?family=Zen+Antique&display=swap"
 
 
 def e(s: str) -> str:
