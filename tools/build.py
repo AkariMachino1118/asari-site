@@ -221,7 +221,7 @@ def r18_index(chars) -> str:
     items = []
     for c in chars:
         items.append(f"""    <article class="profile">
-      <img src="../img/{c['id']}.webp" alt="{e(c['name'])}の立ち絵" loading="lazy">
+      <img src="img/top/{c['id']}.webp" onerror="this.onerror=null;this.src='../img/{c['id']}.webp'" alt="{e(c['name'])}の立ち絵" loading="lazy">
       <div class="profile-text">
         <h3 class="name"><a href="chara/{c['id']}/">{e(c['name'])}</a></h3>
         <p class="roman">{e(c['roman'])}</p>
@@ -286,7 +286,7 @@ def r18_page(c, prev_c, next_c) -> str:
 
   <main class="wrap chara-page">
     <section class="chara-hero">
-      <img class="chara-main" src="../../../img/{cid}.webp" alt="{e(c["name"])}の立ち絵">
+      <img class="chara-main" src="../../img/top/{cid}.webp" onerror="this.onerror=null;this.src='../../../img/{cid}.webp'" alt="{e(c["name"])}の立ち絵">
       <div class="chara-info">
         <p class="kana">{e(c["kana"])}</p>
         <h1 class="name">{e(c["name"])}</h1>

@@ -27,6 +27,7 @@ python tools/upload_r18.py E:\r18_gallery --sync         # ローカルから消
 - png / jpg は長辺1200px・WebP品質80に変換して送られる
 - 送ったあとに `r18/img/<id>/list.json` が更新され、ページがそれを読んで並べる（HTMLの再生成は不要）
 - 並び順はファイル名順。`01.png`, `02.png` … と付ける
+- 成人向けページのキャラ紹介の立ち絵（水着）は `E:\r18_gallery\top\<id>.png` に置いて同じく送る（`python tools/upload_r18.py E:\r18_gallery top`）。サーバーに無いあいだは全年齢の立ち絵が出る
 
 | キャラ | id |
 |---|---|
