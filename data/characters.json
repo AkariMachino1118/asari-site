@@ -1,5 +1,5 @@
 {
-  "_説明": "キャラ個別ページのデータ。編集したら python3 tools/build.py で chara/<id>/index.html を作り直す（mainにpushすれば自動でも作られる）。トップページは全年齢なので、ここに書く文章も全年齢向けにする。サンプル画像は img/gallery/<id>/ に .webp を置くだけで自動で載る（ファイル名順）。",
+  "_説明": "キャラ個別ページのデータ。編集したら python3 tools/build.py で chara/<id>/index.html を作り直す（mainにpushすれば自動でも作られる）。トップページは全年齢なので、ここに書く文章も全年齢向けにする。サンプル画像は img/gallery/<id>/ に .webp を置くだけで自動で載る（ファイル名順）。pixiv が空のときは、pixivでキャラ名（スペースなし）をタイトル・キャプション検索した結果に飛ぶ。特定の作品などに飛ばしたいときだけ URL を入れる。",
   "characters": [
     {
       "id": "mashiro-miu",

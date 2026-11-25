@@ -8,12 +8,14 @@
 """
 import html
 import json
+from urllib.parse import quote
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "characters.json"
 CSS_VERSION = "8"  # style.css を変えたら上げる
-PIXIV_PROFILE = "https://www.pixiv.net/users/7204909"
+# pixiv の「タイトル・キャプション」検索。作品タイトルにキャラ名（スペースなし）が入っている前提
+PIXIV_SEARCH = "https://www.pixiv.net/tags/{q}/artworks?s_mode=s_tc"
 IMG_EXT = {".webp", ".jpg", ".jpeg", ".png"}
 
 FONTS = ("https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@600;700"
@@ -37,10 +39,12 @@ def page(c, prev_c, next_c) -> str:
     intro = "\n".join(f"        <p>{e(p)}</p>" for p in c["intro"])
     profile = "\n".join(
         f"        <div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>" for k, v in c["profile"])
-    if c.get("pixiv"):
-        pixiv_url, pixiv_label = c["pixiv"], f"pixivで{c['name'].split()[-1]}のイラストを見る"
+    q = c["name"].replace(" ", "")
+    if c.get("pixiv"):  # 個別にURLを指定したときはそちらを優先
+        pixiv_url = c["pixiv"]
     else:
-        pixiv_url, pixiv_label = PIXIV_PROFILE, "pixivでイラスト一覧を見る"
+        pixiv_url = PIXIV_SEARCH.format(q=quote(q))
+    pixiv_label = f"pixivで「{q}」のイラストを見る"
 
     if files:
         items = "\n".join(
