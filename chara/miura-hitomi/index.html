@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- このファイルは tools/build.py が自動で作っています。直接編集せず data/characters.json を直してください -->
+<title>三浦 ひとみ | あさりちゃんの部屋</title>
+<meta name="description" content="メガネとショートカットがよく似合う、包容力たっぷりのお姉さん先生。不調も悩みも、笑顔で受け止めてくれる。">
+<meta property="og:title" content="三浦 ひとみ | あさりちゃんの部屋">
+<meta property="og:description" content="メガネとショートカットがよく似合う、包容力たっぷりのお姉さん先生。不調も悩みも、笑顔で受け止めてくれる。">
+<meta property="og:image" content="https://aiasar.com/img/miura-hitomi.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://aiasar.com/chara/miura-hitomi/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../../style.css?v=8">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="site-title"><a href="../../">あさりちゃんの部屋</a></p>
+    <nav class="site-nav"><a href="../../#chara">キャラクター大図鑑</a></nav>
+  </div>
+</header>
+
+<main class="wrap chara-page">
+
+  <section class="chara-hero">
+    <img class="chara-main" src="../../img/miura-hitomi.webp" alt="三浦 ひとみの立ち絵">
+    <div class="chara-info">
+      <p class="kana">みうら ひとみ</p>
+      <h1 class="name">三浦 ひとみ</h1>
+      <p class="roman">Hitomi Miura</p>
+      <p class="catch">保健室の先生</p>
+      <div class="intro">
+        <p>白衣にメガネ、さっぱりしたショートカット。保健室でいつも笑顔で迎えてくれる、頼れるお姉さん先生です。</p>
+        <p>体調のことはもちろん、ちょっとした悩みごとにも親身になってくれる包容力の持ち主。つい長居したくなる保健室の主です。</p>
+      </div>
+      <dl class="profile-list">
+        <div><dt>職業</dt><dd>保健室の先生</dd></div>
+        <div><dt>見た目</dt><dd>ショートカット・メガネ・白衣</dd></div>
+        <div><dt>性格</dt><dd>包容力がある・面倒見がいい</dd></div>
+      </dl>
+      <a class="pixiv-button" href="https://www.pixiv.net/users/7204909" target="_blank" rel="noopener">pixivでイラスト一覧を見る</a>
+    </div>
+  </section>
+
+  <section class="gallery-sec">
+    <h2 class="feature-title">ギャラリー</h2>
+    <p class="gallery-empty">サンプル画像は準備中です。</p>
+  </section>
+
+  <nav class="chara-pager" aria-label="ほかのキャラクター">
+    <a class="pager-prev" href="../mizushima-kei/"><span>前のキャラクター</span>水嶋 ケイ</a><a class="pager-next" href="../kisaragi-sayo/"><span>次のキャラクター</span>如月 紗夜</a>
+  </nav>
+
+</main>
+
+<dialog class="viewer" aria-label="拡大表示">
+  <img alt="">
+  <button type="button" class="viewer-close">閉じる</button>
+</dialog>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p><a class="adult-link" href="../../r18/">成人向けコンテンツ（18歳以上）</a></p>
+    <p>&copy; あさりちゃんの部屋</p>
+  </div>
+</footer>
+
+<script>
+  // サンプル画像をタップすると拡大表示（背景タップ・閉じる・Escで閉じる）
+  (function () {
+    var dlg = document.querySelector(".viewer");
+    if (!dlg || !dlg.showModal) return;
+    var img = dlg.querySelector("img");
+    document.querySelectorAll(".g-item").forEach(function (b) {
+      b.addEventListener("click", function () {
+        img.src = b.dataset.src; img.alt = b.querySelector("img").alt;
+        dlg.showModal();
+      });
+    });
+    dlg.addEventListener("click", function (ev) { if (ev.target !== img) dlg.close(); });
+  })();
+</script>
+</body>
+</html>

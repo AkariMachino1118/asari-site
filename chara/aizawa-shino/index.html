@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- このファイルは tools/build.py が自動で作っています。直接編集せず data/characters.json を直してください -->
+<title>相沢 志乃 | あさりちゃんの部屋</title>
+<meta name="description" content="落ち着いていて媚びない、少し天然。本人は何も意識していないのに、なぜか目が離せない。">
+<meta property="og:title" content="相沢 志乃 | あさりちゃんの部屋">
+<meta property="og:description" content="落ち着いていて媚びない、少し天然。本人は何も意識していないのに、なぜか目が離せない。">
+<meta property="og:image" content="https://aiasar.com/img/aizawa-shino.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://aiasar.com/chara/aizawa-shino/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../../style.css?v=8">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="site-title"><a href="../../">あさりちゃんの部屋</a></p>
+    <nav class="site-nav"><a href="../../#chara">キャラクター大図鑑</a></nav>
+  </div>
+</header>
+
+<main class="wrap chara-page">
+
+  <section class="chara-hero">
+    <img class="chara-main" src="../../img/aizawa-shino.webp" alt="相沢 志乃の立ち絵">
+    <div class="chara-info">
+      <p class="kana">あいざわ しの</p>
+      <h1 class="name">相沢 志乃</h1>
+      <p class="roman">Shino Aizawa</p>
+      <p class="catch">無自覚系の無表情さん</p>
+      <div class="intro">
+        <p>ふわっとしたくせのある髪に、ジト目気味の無表情。愛想を振りまくことはなく、いつもマイペースに過ごしています。</p>
+        <p>飾らない部屋着姿や、のんびりした私生活の一コマが似合う子。本人は何も狙っていないのに、なぜか目で追ってしまいます。</p>
+      </div>
+      <dl class="profile-list">
+        <div><dt>タイプ</dt><dd>無自覚系</dd></div>
+        <div><dt>見た目</dt><dd>こげ茶のくせ毛ミディアム・ジト目・ぽっちゃり</dd></div>
+        <div><dt>性格</dt><dd>冷静・媚びない・少し天然</dd></div>
+      </dl>
+      <a class="pixiv-button" href="https://www.pixiv.net/users/7204909" target="_blank" rel="noopener">pixivでイラスト一覧を見る</a>
+    </div>
+  </section>
+
+  <section class="gallery-sec">
+    <h2 class="feature-title">ギャラリー</h2>
+    <p class="gallery-empty">サンプル画像は準備中です。</p>
+  </section>
+
+  <nav class="chara-pager" aria-label="ほかのキャラクター">
+    <a class="pager-prev" href="../ayase-natsu/"><span>前のキャラクター</span>綾瀬 奈津</a><a class="pager-next" href="../mizushima-kei/"><span>次のキャラクター</span>水嶋 ケイ</a>
+  </nav>
+
+</main>
+
+<dialog class="viewer" aria-label="拡大表示">
+  <img alt="">
+  <button type="button" class="viewer-close">閉じる</button>
+</dialog>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p><a class="adult-link" href="../../r18/">成人向けコンテンツ（18歳以上）</a></p>
+    <p>&copy; あさりちゃんの部屋</p>
+  </div>
+</footer>
+
+<script>
+  // サンプル画像をタップすると拡大表示（背景タップ・閉じる・Escで閉じる）
+  (function () {
+    var dlg = document.querySelector(".viewer");
+    if (!dlg || !dlg.showModal) return;
+    var img = dlg.querySelector("img");
+    document.querySelectorAll(".g-item").forEach(function (b) {
+      b.addEventListener("click", function () {
+        img.src = b.dataset.src; img.alt = b.querySelector("img").alt;
+        dlg.showModal();
+      });
+    });
+    dlg.addEventListener("click", function (ev) { if (ev.target !== img) dlg.close(); });
+  })();
+</script>
+</body>
+</html>

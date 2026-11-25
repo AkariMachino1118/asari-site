@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- このファイルは tools/build.py が自動で作っています。直接編集せず data/characters.json を直してください -->
+<title>如月 紗夜 | あさりちゃんの部屋</title>
+<meta name="description" content="黒髪のまとめ髪に和装が映える、上品で落ち着いた和風美人。老舗旅館を切り盛りしている。">
+<meta property="og:title" content="如月 紗夜 | あさりちゃんの部屋">
+<meta property="og:description" content="黒髪のまとめ髪に和装が映える、上品で落ち着いた和風美人。老舗旅館を切り盛りしている。">
+<meta property="og:image" content="https://aiasar.com/img/kisaragi-sayo.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://aiasar.com/chara/kisaragi-sayo/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="../../style.css?v=8">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="site-title"><a href="../../">あさりちゃんの部屋</a></p>
+    <nav class="site-nav"><a href="../../#chara">キャラクター大図鑑</a></nav>
+  </div>
+</header>
+
+<main class="wrap chara-page">
+
+  <section class="chara-hero">
+    <img class="chara-main" src="../../img/kisaragi-sayo.webp" alt="如月 紗夜の立ち絵">
+    <div class="chara-info">
+      <p class="kana">きさらぎ さよ</p>
+      <h1 class="name">如月 紗夜</h1>
+      <p class="roman">Sayo Kisaragi</p>
+      <p class="catch">旅館の女将</p>
+      <div class="intro">
+        <p>老舗旅館を切り盛りする女将。黒髪をきちんとまとめた和装姿で、どんなお客さまも穏やかに迎えます。</p>
+        <p>所作のひとつひとつが美しく、落ち着いた色気のある大人の女性。その笑顔に会うために通う常連さんも多いとか。</p>
+      </div>
+      <dl class="profile-list">
+        <div><dt>職業</dt><dd>老舗旅館の女将</dd></div>
+        <div><dt>見た目</dt><dd>黒髪のまとめ髪・和装</dd></div>
+        <div><dt>性格</dt><dd>上品・落ち着いている</dd></div>
+      </dl>
+      <a class="pixiv-button" href="https://www.pixiv.net/users/7204909" target="_blank" rel="noopener">pixivでイラスト一覧を見る</a>
+    </div>
+  </section>
+
+  <section class="gallery-sec">
+    <h2 class="feature-title">ギャラリー</h2>
+    <p class="gallery-empty">サンプル画像は準備中です。</p>
+  </section>
+
+  <nav class="chara-pager" aria-label="ほかのキャラクター">
+    <a class="pager-prev" href="../miura-hitomi/"><span>前のキャラクター</span>三浦 ひとみ</a>
+  </nav>
+
+</main>
+
+<dialog class="viewer" aria-label="拡大表示">
+  <img alt="">
+  <button type="button" class="viewer-close">閉じる</button>
+</dialog>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p><a class="adult-link" href="../../r18/">成人向けコンテンツ（18歳以上）</a></p>
+    <p>&copy; あさりちゃんの部屋</p>
+  </div>
+</footer>
+
+<script>
+  // サンプル画像をタップすると拡大表示（背景タップ・閉じる・Escで閉じる）
+  (function () {
+    var dlg = document.querySelector(".viewer");
+    if (!dlg || !dlg.showModal) return;
+    var img = dlg.querySelector("img");
+    document.querySelectorAll(".g-item").forEach(function (b) {
+      b.addEventListener("click", function () {
+        img.src = b.dataset.src; img.alt = b.querySelector("img").alt;
+        dlg.showModal();
+      });
+    });
+    dlg.addEventListener("click", function (ev) { if (ev.target !== img) dlg.close(); });
+  })();
+</script>
+</body>
+</html>

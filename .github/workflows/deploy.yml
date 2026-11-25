@@ -16,6 +16,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Build character pages
+        run: python3 tools/build.py
+
       - name: Upload via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -31,4 +34,6 @@ jobs:
             **/.git*/**
             .github/**
             docs/**
+            data/**
+            tools/**
             README.md
