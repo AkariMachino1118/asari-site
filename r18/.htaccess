@@ -1,0 +1,4 @@
+# 成人向けページと画像は、検索エンジン・画像検索に載せない
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow, noimageindex"
+</IfModule>

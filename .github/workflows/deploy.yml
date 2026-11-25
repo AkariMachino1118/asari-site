@@ -36,4 +36,5 @@ jobs:
             docs/**
             data/**
             tools/**
+            r18/img/**
             README.md

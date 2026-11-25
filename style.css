@@ -241,3 +241,10 @@ html:not(.gate-locked) #age-gate { display: none; }
 /* 見出し用の書体は、かなの字間を詰めて組む */
 .feature-title, .contents-title, .profile .name, .chara-info .name,
 .chara-pager a, .site-title, .gate-card h1, #site main h2 { font-feature-settings: "palt"; }
+
+/* 成人向けページのヘッダーの R-18 マーク */
+.r18-mark {
+  display: inline-block; vertical-align: .15em; margin-left: 6px;
+  font-family: var(--font); font-size: .62rem; font-weight: 700; letter-spacing: .04em;
+  background: var(--magenta); color: #fff; padding: 0 6px; line-height: 1.6;
+}

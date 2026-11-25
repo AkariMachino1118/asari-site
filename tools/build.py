@@ -5,6 +5,7 @@
 - サンプル画像は img/gallery/<id>/ に .webp / .jpg / .png を置くと、ファイル名順に自動で載る
 - main に push すると GitHub Actions でもこのスクリプトが動くので、実行し忘れても反映される
 - 個別ページは全年齢。成人向けの画像は置かないこと
+- 成人向けの r18/index.html と r18/chara/<id>/index.html もここで作る（画像はサーバーに直接。tools/upload_r18.py）
 """
 import html
 import json
@@ -149,6 +150,216 @@ def page(c, prev_c, next_c) -> str:
 """
 
 
+# ======================================================================
+# 成人向け（r18/）のページ
+#   - r18/index.html            … 年齢確認 → キャラ一覧
+#   - r18/chara/<id>/index.html … 年齢確認 → キャラ紹介＋成人向けサンプル
+# 成人向けの画像は GitHub に置かない（公開リポジトリのため）。
+# サーバーの r18/img/<id>/ に tools/upload_r18.py で直接アップロードし、
+# 同じ場所の list.json をページが読み込んで並べる。
+# ======================================================================
+
+GATE_HEAD = """<script>
+  // 前回「はい」を押していれば、描画前にロックを外す（ゲートが一瞬出るのを防ぐ）
+  (function () {
+    try {
+      var until = Number(localStorage.getItem("ageOkUntil") || 0);
+      if (until > Date.now()) document.documentElement.classList.remove("gate-locked");
+    } catch (e) { /* 保存できない環境では毎回確認 */ }
+  })();
+</script>"""
+
+GATE_BODY = """<!-- ===== 年齢確認ゲート ===== -->
+<section id="age-gate" role="dialog" aria-labelledby="gate-title">
+  <div class="gate-card">
+    <div class="gate-badge">R-18</div>
+    <h1 id="gate-title">年齢確認</h1>
+    <p>この先には、18歳未満の方の閲覧に適さない内容が含まれています。</p>
+    <p>あなたは18歳以上ですか？</p>
+    <p class="note">登場人物はすべて18歳以上です。</p>
+    <div class="gate-buttons">
+      <button id="gate-yes" type="button">はい（18歳以上）</button>
+      <a id="gate-no" href="{top}">いいえ（トップに戻る）</a>
+    </div>
+    <label class="gate-remember">
+      <input type="checkbox" id="gate-remember" checked>
+      30日間この確認を表示しない
+    </label>
+    <noscript><p class="note">このページの閲覧にはJavaScriptを有効にしてください。</p></noscript>
+  </div>
+</section>"""
+
+GATE_SCRIPT = """<script>
+  document.getElementById("gate-yes").addEventListener("click", function () {
+    if (document.getElementById("gate-remember").checked) {
+      try { localStorage.setItem("ageOkUntil", String(Date.now() + 30 * 864e5)); } catch (e) {}
+    }
+    document.documentElement.classList.remove("gate-locked");
+    window.scrollTo(0, 0);
+  });
+</script>"""
+
+
+def r18_head(title: str, css: str) -> str:
+    return f"""<!doctype html>
+<html lang="ja" class="gate-locked">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- このファイルは tools/build.py が自動で作っています。直接編集せず data/characters.json を直してください -->
+<title>{e(title)}</title>
+<meta name="robots" content="noindex, nofollow, noimageindex">
+<link rel="stylesheet" href="{FONTS}">
+<link rel="stylesheet" href="{css}style.css?v={CSS_VERSION}">
+{GATE_HEAD}
+</head>
+<body>
+"""
+
+
+def r18_index(chars) -> str:
+    items = []
+    for c in chars:
+        items.append(f"""    <article class="profile">
+      <img src="../img/{c['id']}.webp" alt="{e(c['name'])}の立ち絵" loading="lazy">
+      <div class="profile-text">
+        <h3 class="name"><a href="chara/{c['id']}/">{e(c['name'])}</a></h3>
+        <p class="roman">{e(c['roman'])}</p>
+        <p class="catch">{e(c['catch'])}</p>
+        <p class="desc">{e(c.get('r18_desc') or c['desc'])}</p>
+        <a class="more" href="chara/{c['id']}/">成人向けサンプルを見る</a>
+      </div>
+    </article>""")
+    body = "\n".join(items)
+    return r18_head("成人向けコンテンツ | あさりちゃんの部屋", "../") + GATE_BODY.format(top="../") + f"""
+
+<div id="site">
+  <header class="site-header">
+    <div class="wrap">
+      <p class="site-title"><a href="./">あさりちゃんの部屋 <span class="r18-mark">R-18</span></a></p>
+      <nav class="site-nav"><a href="../">全年齢のトップへ</a></nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="chara">
+      <h2 class="feature-title">キャラクター大図鑑 R-18</h2>
+      <p class="feature-lead">各キャラクターの成人向けサンプルを載せています。</p>
+{body}
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap"><p><a class="adult-link" href="../">全年齢のトップへ戻る</a></p><p>&copy; あさりちゃんの部屋</p></div>
+  </footer>
+</div>
+
+{GATE_SCRIPT}
+</body>
+</html>
+"""
+
+
+def r18_page(c, prev_c, next_c) -> str:
+    cid = c["id"]
+    intro_src = c.get("r18_intro") or c["intro"]
+    intro = "\n".join(f"        <p>{e(p)}</p>" for p in intro_src)
+    profile = "\n".join(
+        f"        <div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>" for k, v in c["profile"])
+    q = c["name"].replace(" ", "")
+    pixiv_url = c.get("pixiv") or PIXIV_SEARCH.format(q=quote(q))
+    pager = []
+    if prev_c:
+        pager.append(f'<a class="pager-prev" href="../{prev_c["id"]}/"><span>前のキャラクター</span>{e(prev_c["name"])}</a>')
+    if next_c:
+        pager.append(f'<a class="pager-next" href="../{next_c["id"]}/"><span>次のキャラクター</span>{e(next_c["name"])}</a>')
+
+    return r18_head(f"{c['name']}（R-18） | あさりちゃんの部屋", "../../../") + GATE_BODY.format(top="../../../") + f"""
+
+<div id="site">
+  <header class="site-header">
+    <div class="wrap">
+      <p class="site-title"><a href="../../">あさりちゃんの部屋 <span class="r18-mark">R-18</span></a></p>
+      <nav class="site-nav"><a href="../../">キャラクター一覧</a></nav>
+    </div>
+  </header>
+
+  <main class="wrap chara-page">
+    <section class="chara-hero">
+      <img class="chara-main" src="../../../img/{cid}.webp" alt="{e(c["name"])}の立ち絵">
+      <div class="chara-info">
+        <p class="kana">{e(c["kana"])}</p>
+        <h1 class="name">{e(c["name"])}</h1>
+        <p class="roman">{e(c["roman"])}</p>
+        <p class="catch">{e(c["catch"])}</p>
+        <div class="intro">
+{intro}
+        </div>
+        <dl class="profile-list">
+{profile}
+        </dl>
+        <a class="pixiv-button" href="{e(pixiv_url)}" target="_blank" rel="noopener">pixivで「{e(q)}」のイラストを見る</a>
+      </div>
+    </section>
+
+    <section class="gallery-sec">
+      <h2 class="feature-title">成人向けサンプル</h2>
+      <ul class="gallery" id="r18-gallery" data-dir="../../img/{cid}/"></ul>
+      <p class="gallery-empty" id="r18-empty">サンプル画像は準備中です。</p>
+    </section>
+
+    <nav class="chara-pager" aria-label="ほかのキャラクター">
+      {"".join(pager)}
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap"><p><a class="adult-link" href="../../../">全年齢のトップへ戻る</a></p><p>&copy; あさりちゃんの部屋</p></div>
+  </footer>
+</div>
+
+<dialog class="viewer" aria-label="拡大表示">
+  <img alt="">
+  <button type="button" class="viewer-close">閉じる</button>
+</dialog>
+
+{GATE_SCRIPT}
+<script>
+  // サーバーの r18/img/<id>/list.json を読み込んで、サンプル画像を並べる
+  (function () {{
+    var ul = document.getElementById("r18-gallery");
+    var empty = document.getElementById("r18-empty");
+    var dir = ul.dataset.dir;
+    var dlg = document.querySelector(".viewer");
+    var big = dlg.querySelector("img");
+    fetch(dir + "list.json", {{ cache: "no-cache" }})
+      .then(function (r) {{ return r.ok ? r.json() : []; }})
+      .catch(function () {{ return []; }})
+      .then(function (files) {{
+        if (!files.length) return;
+        empty.hidden = true;
+        files.forEach(function (name, i) {{
+          var li = document.createElement("li");
+          var b = document.createElement("button");
+          b.type = "button"; b.className = "g-item";
+          var img = document.createElement("img");
+          img.src = dir + name; img.loading = "lazy";
+          img.alt = {json.dumps(c["name"])} + "の成人向けイラスト " + (i + 1);
+          b.appendChild(img); li.appendChild(b); ul.appendChild(li);
+          b.addEventListener("click", function () {{
+            big.src = img.src; big.alt = img.alt;
+            if (dlg.showModal) dlg.showModal();
+          }});
+        }});
+      }});
+    dlg.addEventListener("click", function (ev) {{ if (ev.target !== big) dlg.close(); }});
+  }})();
+</script>
+</body>
+</html>
+"""
+
+
 def main():
     chars = json.loads(DATA.read_text(encoding="utf-8"))["characters"]
     for i, c in enumerate(chars):
@@ -158,6 +369,13 @@ def main():
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(page(c, prev_c, next_c), encoding="utf-8")
         print(f"built {out.relative_to(ROOT)}  (gallery: {len(gallery_files(c['id']))}枚)")
+
+        r18_out = ROOT / "r18" / "chara" / c["id"] / "index.html"
+        r18_out.parent.mkdir(parents=True, exist_ok=True)
+        r18_out.write_text(r18_page(c, prev_c, next_c), encoding="utf-8")
+
+    (ROOT / "r18" / "index.html").write_text(r18_index(chars), encoding="utf-8")
+    print("built r18/index.html と r18/chara/*/index.html")
 
 
 if __name__ == "__main__":

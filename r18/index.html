@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- このファイルは tools/build.py が自動で作っています。直接編集せず data/characters.json を直してください -->
 <title>成人向けコンテンツ | あさりちゃんの部屋</title>
-<!-- 検索結果に出さない -->
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="noindex, nofollow, noimageindex">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Antique&display=swap">
 <link rel="stylesheet" href="../style.css?v=9">
 <script>
@@ -19,7 +19,6 @@
 </script>
 </head>
 <body>
-
 <!-- ===== 年齢確認ゲート ===== -->
 <section id="age-gate" role="dialog" aria-labelledby="gate-title">
   <div class="gate-card">
@@ -28,52 +27,102 @@
     <p>この先には、18歳未満の方の閲覧に適さない内容が含まれています。</p>
     <p>あなたは18歳以上ですか？</p>
     <p class="note">登場人物はすべて18歳以上です。</p>
-
     <div class="gate-buttons">
       <button id="gate-yes" type="button">はい（18歳以上）</button>
       <a id="gate-no" href="../">いいえ（トップに戻る）</a>
     </div>
-
     <label class="gate-remember">
       <input type="checkbox" id="gate-remember" checked>
       30日間この確認を表示しない
     </label>
-
-    <noscript>
-      <p class="note">このページの閲覧にはJavaScriptを有効にしてください。</p>
-    </noscript>
+    <noscript><p class="note">このページの閲覧にはJavaScriptを有効にしてください。</p></noscript>
   </div>
 </section>
 
-<!-- ===== 本文（確認後に表示） ===== -->
 <div id="site">
   <header class="site-header">
     <div class="wrap">
-      <p class="site-title"><a href="../">あさりちゃんの部屋</a></p>
-      <nav class="site-nav">
-        <a href="../">トップへ戻る</a>
-      </nav>
+      <p class="site-title"><a href="./">あさりちゃんの部屋 <span class="r18-mark">R-18</span></a></p>
+      <nav class="site-nav"><a href="../">全年齢のトップへ</a></nav>
     </div>
   </header>
 
   <main class="wrap">
-    <section>
-      <h2>成人向けコンテンツ</h2>
-      <p>ここに成人向けの内容や、作品の販売・告知情報を書きます。</p>
+    <section id="chara">
+      <h2 class="feature-title">キャラクター大図鑑 R-18</h2>
+      <p class="feature-lead">各キャラクターの成人向けサンプルを載せています。</p>
+    <article class="profile">
+      <img src="../img/mashiro-miu.webp" alt="真城 美羽の立ち絵" loading="lazy">
+      <div class="profile-text">
+        <h3 class="name"><a href="chara/mashiro-miu/">真城 美羽</a></h3>
+        <p class="roman">Miu Mashiro</p>
+        <p class="catch">金髪ギャル</p>
+        <p class="desc">金髪ゆるふわロングがトレードマーク。ノリが良くて人懐っこい、場をぱっと明るくするムードメーカー。</p>
+        <a class="more" href="chara/mashiro-miu/">成人向けサンプルを見る</a>
+      </div>
+    </article>
+    <article class="profile">
+      <img src="../img/ayase-natsu.webp" alt="綾瀬 奈津の立ち絵" loading="lazy">
+      <div class="profile-text">
+        <h3 class="name"><a href="chara/ayase-natsu/">綾瀬 奈津</a></h3>
+        <p class="roman">Natsu Ayase</p>
+        <p class="catch">黒髪ボブの大人女子</p>
+        <p class="desc">柔らかい物腰と、ふとした瞬間に見せる表情が魅力。風の強い日はちょっと要注意。</p>
+        <a class="more" href="chara/ayase-natsu/">成人向けサンプルを見る</a>
+      </div>
+    </article>
+    <article class="profile">
+      <img src="../img/aizawa-shino.webp" alt="相沢 志乃の立ち絵" loading="lazy">
+      <div class="profile-text">
+        <h3 class="name"><a href="chara/aizawa-shino/">相沢 志乃</a></h3>
+        <p class="roman">Shino Aizawa</p>
+        <p class="catch">無自覚系の無表情さん</p>
+        <p class="desc">落ち着いていて媚びない、少し天然。本人は何も意識していないのに、なぜか目が離せない。</p>
+        <a class="more" href="chara/aizawa-shino/">成人向けサンプルを見る</a>
+      </div>
+    </article>
+    <article class="profile">
+      <img src="../img/mizushima-kei.webp" alt="水嶋 ケイの立ち絵" loading="lazy">
+      <div class="profile-text">
+        <h3 class="name"><a href="chara/mizushima-kei/">水嶋 ケイ</a></h3>
+        <p class="roman">Kei Mizushima</p>
+        <p class="catch">グラビアアイドル</p>
+        <p class="desc">見せ方を知り尽くした大人の余裕。控えめな妹・るいとは対照的な、華やかなお姉さん。</p>
+        <a class="more" href="chara/mizushima-kei/">成人向けサンプルを見る</a>
+      </div>
+    </article>
+    <article class="profile">
+      <img src="../img/miura-hitomi.webp" alt="三浦 ひとみの立ち絵" loading="lazy">
+      <div class="profile-text">
+        <h3 class="name"><a href="chara/miura-hitomi/">三浦 ひとみ</a></h3>
+        <p class="roman">Hitomi Miura</p>
+        <p class="catch">保健室の先生</p>
+        <p class="desc">メガネとショートカットがよく似合う、包容力たっぷりのお姉さん先生。不調も悩みも、笑顔で受け止めてくれる。</p>
+        <a class="more" href="chara/miura-hitomi/">成人向けサンプルを見る</a>
+      </div>
+    </article>
+    <article class="profile">
+      <img src="../img/kisaragi-sayo.webp" alt="如月 紗夜の立ち絵" loading="lazy">
+      <div class="profile-text">
+        <h3 class="name"><a href="chara/kisaragi-sayo/">如月 紗夜</a></h3>
+        <p class="roman">Sayo Kisaragi</p>
+        <p class="catch">旅館の女将</p>
+        <p class="desc">黒髪のまとめ髪に和装が映える、上品で落ち着いた和風美人。老舗旅館を切り盛りしている。</p>
+        <a class="more" href="chara/kisaragi-sayo/">成人向けサンプルを見る</a>
+      </div>
+    </article>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="wrap"><p>&copy; あさりちゃんの部屋</p></div>
+    <div class="wrap"><p><a class="adult-link" href="../">全年齢のトップへ戻る</a></p><p>&copy; あさりちゃんの部屋</p></div>
   </footer>
 </div>
 
 <script>
   document.getElementById("gate-yes").addEventListener("click", function () {
     if (document.getElementById("gate-remember").checked) {
-      try {
-        localStorage.setItem("ageOkUntil", String(Date.now() + 30 * 864e5));
-      } catch (e) { /* 保存できなくても今回は通す */ }
+      try { localStorage.setItem("ageOkUntil", String(Date.now() + 30 * 864e5)); } catch (e) {}
     }
     document.documentElement.classList.remove("gate-locked");
     window.scrollTo(0, 0);
