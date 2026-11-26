@@ -12,6 +12,22 @@
 
 ## アップロード手順
 
+おすすめ：接続情報をこのPCに暗号化して保存しておけば、以後はパスワードの入力なしで送れる（Claude Code からも実行できる。パスワードはClaudeに見えない）。
+
+```powershell
+# 1回だけ：Windowsのダイアログにパスワードを入力（%APPDATA%\asari-site\ftp_cred.xml にDPAPIで暗号化して保存。リポジトリの外）
+powershell -ExecutionPolicy Bypass -File tools\save_ftp_cred.ps1
+
+# 以後
+powershell -ExecutionPolicy Bypass -File tools\upload_r18.ps1 E:\r18_gallery              # 全キャラ
+powershell -ExecutionPolicy Bypass -File tools\upload_r18.ps1 E:\r18_gallery miura-hitomi # 1人だけ
+powershell -ExecutionPolicy Bypass -File tools\upload_r18.ps1 E:\r18_voice --audio        # 成人向けボイス
+```
+
+接続情報を消したいときは `%APPDATA%\asari-site\ftp_cred.xml` を削除する。
+
+保存せずに、その都度入力する場合：
+
 ```powershell
 # FTPの接続情報（GitHub Secrets と同じもの。本人に入力してもらう。ファイルに保存しない）
 $env:FTP_SERVER="ik10016.mixhost.jp"
