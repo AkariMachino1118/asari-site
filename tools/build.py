@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "characters.json"
-CSS_VERSION = "9"  # style.css を変えたら上げる
+CSS_VERSION = "10"  # style.css を変えたら上げる
 # pixiv の「タイトル・キャプション」検索。作品タイトルにキャラ名（スペースなし）が入っている前提
 PIXIV_SEARCH = "https://www.pixiv.net/tags/{q}/artworks?s_mode=s_tc"
 IMG_EXT = {".webp", ".jpg", ".jpeg", ".png"}
