@@ -1,0 +1,8 @@
+# ギャラリー画像は同じファイル名で差し替えるので、ブラウザに毎回「変わっていないか」を確かめさせる
+# （変わっていなければ 304 で中身は送らない）。サーバー既定の7日キャッシュだと差し替えが反映されない
+<IfModule mod_headers.c>
+  <FilesMatch "\.(webp|jpe?g|png)$">
+    Header set Cache-Control "no-cache"
+    Header unset Expires
+  </FilesMatch>
+</IfModule>
