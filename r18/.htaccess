@@ -2,3 +2,12 @@
 <IfModule mod_headers.c>
   Header set X-Robots-Tag "noindex, nofollow, noimageindex"
 </IfModule>
+
+# 成人向けの画像・音声・一覧(list.json)は同じファイル名で差し替えるので、ブラウザに毎回「変わっていないか」を
+# 確かめさせる（変わっていなければ 304 で中身は送らない）。サーバー既定の7日キャッシュだと差し替えが反映されない
+<IfModule mod_headers.c>
+  <FilesMatch "\.(webp|jpe?g|png|mp3|m4a|ogg|json)$">
+    Header set Cache-Control "no-cache"
+    Header unset Expires
+  </FilesMatch>
+</IfModule>
