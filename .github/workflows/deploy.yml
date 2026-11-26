@@ -37,4 +37,5 @@ jobs:
             data/**
             tools/**
             r18/img/**
+            r18/audio/**
             README.md

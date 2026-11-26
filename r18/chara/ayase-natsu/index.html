@@ -68,6 +68,16 @@
       </div>
     </section>
 
+    <section class="voice-sec">
+      <h2 class="feature-title">成人向けサンプルボイス</h2>
+      <ul class="voice-list" data-manifest="../../audio/ayase-natsu/list.json">
+      <li hidden><button type="button" class="voice-play" data-src="../../audio/ayase-natsu/01.mp3" aria-pressed="false"><span class="voice-icon" aria-hidden="true"></span><span class="voice-label">再生</span></button><p class="voice-line">「きゃっ…！み、見ました…よね？…今のは、忘れてください…」</p></li>
+      <li hidden><button type="button" class="voice-play" data-src="../../audio/ayase-natsu/02.mp3" aria-pressed="false"><span class="voice-icon" aria-hidden="true"></span><span class="voice-label">再生</span></button><p class="voice-line">「そんなに見つめられたら…私まで、変な気持ちになっちゃいます」</p></li>
+      <li hidden><button type="button" class="voice-play" data-src="../../audio/ayase-natsu/03.mp3" aria-pressed="false"><span class="voice-icon" aria-hidden="true"></span><span class="voice-label">再生</span></button><p class="voice-line">「…二人きりのときなら、少しくらいなら…いいですよ？」</p></li>
+      </ul>
+      <p class="gallery-empty" id="voice-empty">ボイスは準備中です。</p>
+    </section>
+
     <section class="gallery-sec">
       <h2 class="feature-title">成人向けサンプル</h2>
       <ul class="gallery" id="r18-gallery" data-dir="../../img/ayase-natsu/"></ul>
@@ -97,6 +107,38 @@
     document.documentElement.classList.remove("gate-locked");
     window.scrollTo(0, 0);
   });
+</script>
+<script>
+  // サンプルボイス：ボタンで再生／停止（同時に鳴るのは1つだけ）
+  (function () {
+    var list = document.querySelector(".voice-list");
+    if (!list) return;
+    var audio = new Audio(), current = null;
+    function stop() { audio.pause(); if (current) { current.classList.remove("is-playing"); current.setAttribute("aria-pressed", "false"); } current = null; }
+    audio.addEventListener("ended", stop);
+    function bind(btn) {
+      btn.addEventListener("click", function () {
+        if (current === btn) { stop(); return; }
+        stop(); audio.src = btn.dataset.src; audio.play();
+        current = btn; btn.classList.add("is-playing"); btn.setAttribute("aria-pressed", "true");
+      });
+    }
+    var manifest = list.dataset.manifest;
+    if (!manifest) { list.querySelectorAll(".voice-play").forEach(bind); return; }
+    // 成人向け：サーバーの list.json にある音声だけ表示
+    fetch(manifest, { cache: "no-cache" })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .catch(function () { return []; })
+      .then(function (files) {
+        var shown = 0;
+        list.querySelectorAll("li").forEach(function (li) {
+          var btn = li.querySelector(".voice-play");
+          var name = btn.dataset.src.split("/").pop();
+          if (files.indexOf(name) >= 0) { li.hidden = false; bind(btn); shown++; }
+        });
+        if (shown) document.getElementById("voice-empty").hidden = true;
+      });
+  })();
 </script>
 <script>
   // サーバーの r18/img/<id>/list.json を読み込んで、サンプル画像を並べる

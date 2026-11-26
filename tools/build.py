@@ -33,6 +33,98 @@ def gallery_files(cid: str):
     return sorted(p for p in d.iterdir() if p.suffix.lower() in IMG_EXT)
 
 
+# ----- サンプルボイス -----
+AUDIO_EXT = (".mp3", ".m4a", ".ogg")
+
+VOICE_JS = """<script>
+  // サンプルボイス：ボタンで再生／停止（同時に鳴るのは1つだけ）
+  (function () {
+    var list = document.querySelector(".voice-list");
+    if (!list) return;
+    var audio = new Audio(), current = null;
+    function stop() { audio.pause(); if (current) { current.classList.remove("is-playing"); current.setAttribute("aria-pressed", "false"); } current = null; }
+    audio.addEventListener("ended", stop);
+    function bind(btn) {
+      btn.addEventListener("click", function () {
+        if (current === btn) { stop(); return; }
+        stop(); audio.src = btn.dataset.src; audio.play();
+        current = btn; btn.classList.add("is-playing"); btn.setAttribute("aria-pressed", "true");
+      });
+    }
+    var manifest = list.dataset.manifest;
+    if (!manifest) { list.querySelectorAll(".voice-play").forEach(bind); return; }
+    // 成人向け：サーバーの list.json にある音声だけ表示
+    fetch(manifest, { cache: "no-cache" })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .catch(function () { return []; })
+      .then(function (files) {
+        var shown = 0;
+        list.querySelectorAll("li").forEach(function (li) {
+          var btn = li.querySelector(".voice-play");
+          var name = btn.dataset.src.split("/").pop();
+          if (files.indexOf(name) >= 0) { li.hidden = false; bind(btn); shown++; }
+        });
+        if (shown) document.getElementById("voice-empty").hidden = true;
+      });
+  })();
+</script>"""
+
+
+def voice_audio_file(cid: str, vid: str):
+    for ext in AUDIO_EXT:
+        f = ROOT / "audio" / cid / f"{vid}{ext}"
+        if f.exists():
+            return f
+    return None
+
+
+def voice_items(voices, src_of, hidden=False) -> str:
+    rows = []
+    for v in voices:
+        src = src_of(v)
+        if not src:
+            continue
+        hid = " hidden" if hidden else ""
+        rows.append(
+            f'      <li{hid}><button type="button" class="voice-play" data-src="{e(src)}" aria-pressed="false">'
+            f'<span class="voice-icon" aria-hidden="true"></span><span class="voice-label">再生</span></button>'
+            f'<p class="voice-line">「{e(v["line"])}」</p></li>')
+    return "\n".join(rows)
+
+
+def voice_section(c) -> str:
+    cid = c["id"]
+
+    def src_of(v):
+        f = voice_audio_file(cid, v["id"])
+        return f"../../audio/{cid}/{f.name}" if f else None
+
+    items = voice_items(c.get("voices", []), src_of)
+    credit = f'\n    <p class="voice-credit">音声：{e(c["voice_credit"])}</p>' if c.get("voice_credit") else ""
+    body = f'    <ul class="voice-list">\n{items}\n    </ul>' if items else '    <p class="gallery-empty">ボイスは準備中です。</p>'
+    return f"""  <section class="voice-sec">
+    <h2 class="feature-title">サンプルボイス</h2>
+{body}{credit}
+  </section>
+
+"""
+
+
+def r18_voice_section(c) -> str:
+    cid = c["id"]
+    items = voice_items(c.get("r18_voices", []), lambda v: f"../../audio/{cid}/{v['id']}.mp3", hidden=True)
+    credit = f'\n      <p class="voice-credit">音声：{e(c["voice_credit"])}</p>' if c.get("voice_credit") else ""
+    return f"""    <section class="voice-sec">
+      <h2 class="feature-title">成人向けサンプルボイス</h2>
+      <ul class="voice-list" data-manifest="../../audio/{cid}/list.json">
+{items}
+      </ul>
+      <p class="gallery-empty" id="voice-empty">ボイスは準備中です。</p>{credit}
+    </section>
+
+"""
+
+
 def page(c, prev_c, next_c) -> str:
     cid = c["id"]
     files = gallery_files(cid)
@@ -107,7 +199,7 @@ def page(c, prev_c, next_c) -> str:
     </div>
   </section>
 
-  <section class="gallery-sec">
+{voice_section(c)}  <section class="gallery-sec">
     <h2 class="feature-title">ギャラリー</h2>
 {gallery}
   </section>
@@ -130,6 +222,7 @@ def page(c, prev_c, next_c) -> str:
   </div>
 </footer>
 
+{VOICE_JS}
 <script>
   // サンプル画像をタップすると拡大表示（背景タップ・閉じる・Escで閉じる）
   (function () {{
@@ -302,7 +395,7 @@ def r18_page(c, prev_c, next_c) -> str:
       </div>
     </section>
 
-    <section class="gallery-sec">
+{r18_voice_section(c)}    <section class="gallery-sec">
       <h2 class="feature-title">成人向けサンプル</h2>
       <ul class="gallery" id="r18-gallery" data-dir="../../img/{cid}/"></ul>
       <p class="gallery-empty" id="r18-empty">サンプル画像は準備中です。</p>
@@ -324,6 +417,7 @@ def r18_page(c, prev_c, next_c) -> str:
 </dialog>
 
 {GATE_SCRIPT}
+{VOICE_JS}
 <script>
   // サーバーの r18/img/<id>/list.json を読み込んで、サンプル画像を並べる
   (function () {{

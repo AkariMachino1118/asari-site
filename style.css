@@ -248,3 +248,26 @@ html:not(.gate-locked) #age-gate { display: none; }
   font-family: var(--font); font-size: .62rem; font-weight: 700; letter-spacing: .04em;
   background: var(--magenta); color: #fff; padding: 0 6px; line-height: 1.6;
 }
+
+/* ===== サンプルボイス ===== */
+.voice-sec { margin-top: 64px; }
+.voice-list { list-style: none; padding: 0; margin: 18px 0 0; border-top: 2px solid var(--ink); max-width: 40em; }
+.voice-list li {
+  display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center;
+  padding: 12px 0; border-bottom: 1px solid var(--rule);
+}
+.voice-play {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 7em;
+  padding: 8px 14px; border: 1.5px solid var(--ink); background: transparent; color: var(--ink);
+  font-family: inherit; font-size: .82rem; font-weight: 700; cursor: pointer;
+}
+.voice-play:focus-visible { outline: 2px solid var(--magenta); outline-offset: 2px; }
+.voice-icon {
+  width: 0; height: 0; border-style: solid;
+  border-width: 5px 0 5px 9px; border-color: transparent transparent transparent currentColor;
+}
+.voice-play.is-playing { background: var(--ink); color: var(--paper); }
+.voice-play.is-playing .voice-icon { width: 9px; height: 10px; border: 0; background: currentColor; }
+.voice-play.is-playing .voice-label::after { content: "中"; }
+.voice-line { font-size: .9rem; }
+.voice-credit { margin-top: 10px; font-size: .74rem; color: var(--sub); }
