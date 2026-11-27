@@ -287,3 +287,11 @@ html:not(.gate-locked) #age-gate { display: none; }
   font-family: inherit; font-weight: 700; font-size: .95rem; cursor: pointer;
 }
 .pickup-next:hover { background: var(--magenta); color: #fff; }
+.pickup-link {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px;
+  margin-top: 20px; padding: 14px 16px; border: 1.5px solid var(--ink);
+  color: var(--ink); text-decoration: none;
+}
+.pickup-link .c-name { font-family: var(--display); font-feature-settings: "palt"; font-size: 1.1rem; }
+.pickup-link:hover { background: var(--ink); color: var(--paper); }
+.pickup-link:hover .c-note { color: inherit; }

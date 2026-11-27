@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ja" class="gate-locked">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- このファイルは tools/build.py が自動で作っています。直接編集せず data/characters.json を直してください -->
+<title>ランダムピックアップ（R-18） | あさりちゃんの部屋</title>
+<meta name="robots" content="noindex, nofollow, noimageindex">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Antique&display=swap">
+<link rel="stylesheet" href="../../style.css?v=12">
+<script>
+  // 前回「はい」を押していれば、描画前にロックを外す（ゲートが一瞬出るのを防ぐ）
+  (function () {
+    try {
+      var until = Number(localStorage.getItem("ageOkUntil") || 0);
+      if (until > Date.now()) document.documentElement.classList.remove("gate-locked");
+    } catch (e) { /* 保存できない環境では毎回確認 */ }
+  })();
+</script>
+</head>
+<body>
+<!-- ===== 年齢確認ゲート ===== -->
+<section id="age-gate" role="dialog" aria-labelledby="gate-title">
+  <div class="gate-card">
+    <div class="gate-badge">R-18</div>
+    <h1 id="gate-title">年齢確認</h1>
+    <p>この先には、18歳未満の方の閲覧に適さない内容が含まれています。</p>
+    <p>あなたは18歳以上ですか？</p>
+    <p class="note">登場人物はすべて18歳以上です。</p>
+    <div class="gate-buttons">
+      <button id="gate-yes" type="button">はい（18歳以上）</button>
+      <a id="gate-no" href="../../">いいえ（トップに戻る）</a>
+    </div>
+    <label class="gate-remember">
+      <input type="checkbox" id="gate-remember" checked>
+      30日間この確認を表示しない
+    </label>
+    <noscript><p class="note">このページの閲覧にはJavaScriptを有効にしてください。</p></noscript>
+  </div>
+</section>
+
+<div id="site">
+  <header class="site-header">
+    <div class="wrap">
+      <p class="site-title"><a href="../">あさりちゃんの部屋 <span class="r18-mark">R-18</span></a></p>
+      <nav class="site-nav"><a href="../">キャラクター一覧</a></nav>
+    </div>
+  </header>
+
+  <main class="wrap pickup">
+    <h1 class="feature-title">ランダムピックアップ</h1>
+    <p class="feature-lead">pixivに投稿したイラストから、1枚をランダムに表示しています。絵をタップするとpixivで開きます。</p>
+
+    <a class="pickup-card" id="pick" href="https://www.pixiv.net/users/7204909" target="_blank" rel="noopener" hidden>
+      <img id="pick-img" alt="">
+    </a>
+    <p class="pickup-hint" id="pick-hint" hidden>タップでpixivの作品ページへ</p>
+    <button type="button" class="pickup-next" id="pick-next" hidden>ほかの絵を見る</button>
+    <p class="gallery-empty" id="pick-empty">イラストは準備中です。</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap"><p><a class="adult-link" href="../../">全年齢のトップへ戻る</a></p><p>&copy; あさりちゃんの部屋</p></div>
+  </footer>
+</div>
+
+<script>
+  document.getElementById("gate-yes").addEventListener("click", function () {
+    if (document.getElementById("gate-remember").checked) {
+      try { localStorage.setItem("ageOkUntil", String(Date.now() + 30 * 864e5)); } catch (e) {}
+    }
+    document.documentElement.classList.remove("gate-locked");
+    window.scrollTo(0, 0);
+  });
+</script>
+<script>
+  (function () {
+    var dir = "../img/pickup/";
+    fetch(dir + "list.json", { cache: "no-cache" })
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .catch(function () { return []; })
+      .then(function (files) {
+        // ファイル名（<作品ID>.webp）から作品IDを取り出す
+        var items = files.map(function (f) { return { id: String(f).split(".")[0], src: dir + f }; })
+                         .filter(function (it) { return /^\d+$/.test(it.id); });
+        if (!items.length) return;
+        // シャッフルして順に見せる（一巡するまで同じ絵は出ない）
+        for (var i = items.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1)); var t = items[i]; items[i] = items[j]; items[j] = t;
+        }
+        var pos = 0;
+        var a = document.getElementById("pick"), img = document.getElementById("pick-img");
+        var next = document.getElementById("pick-next");
+        function show() {
+          var it = items[pos % items.length];
+          img.src = it.src; img.alt = "pixiv作品 " + it.id;
+          a.href = "https://www.pixiv.net/artworks/" + it.id;
+          var pre = new Image(); pre.src = items[(pos + 1) % items.length].src;  // 次の絵を先読み
+        }
+        document.getElementById("pick-empty").hidden = true;
+        a.hidden = false; document.getElementById("pick-hint").hidden = false;
+        next.hidden = items.length < 2;
+        next.addEventListener("click", function () { pos++; show(); });
+        show();
+      });
+  })();
+</script>
+</body>
+</html>
