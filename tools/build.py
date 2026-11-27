@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "characters.json"
-CSS_VERSION = "10"  # style.css を変えたら上げる
+CSS_VERSION = "11"  # style.css を変えたら上げる
 # pixiv の「タイトル・キャプション」検索。作品タイトルにキャラ名（スペースなし）が入っている前提
 PIXIV_SEARCH = "https://www.pixiv.net/tags/{q}/artworks?s_mode=s_tc"
 IMG_EXT = {".webp", ".jpg", ".jpeg", ".png"}
@@ -454,6 +454,95 @@ def r18_page(c, prev_c, next_c) -> str:
 """
 
 
+# ======================================================================
+# ランダムピックアップ（pickup/index.html）
+#   img/pickup/<pixiv作品ID>.webp を置くと、その中から1枚をランダムに表示。
+#   タップで https://www.pixiv.net/artworks/<作品ID> を開く。全年齢の作品だけ置くこと。
+# ======================================================================
+
+def pickup_files():
+    d = ROOT / "img" / "pickup"
+    if not d.is_dir():
+        return []
+    return sorted(p for p in d.iterdir() if p.suffix.lower() in IMG_EXT and p.stem.isdigit())
+
+
+def pickup_page() -> str:
+    files = pickup_files()
+    items = [{"id": p.stem, "src": f"../img/pickup/{p.name}?v={int(p.stat().st_mtime)}"} for p in files]
+    data = json.dumps(items, ensure_ascii=False)
+    return f"""<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- このファイルは tools/build.py が自動で作っています。画像は img/pickup/<pixiv作品ID>.webp に置くだけ -->
+<title>ランダムピックアップ | あさりちゃんの部屋</title>
+<meta name="description" content="pixivに投稿したイラストから、1枚をランダムに表示します。">
+<link rel="canonical" href="https://aiasar.com/pickup/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="{FONTS}">
+<link rel="stylesheet" href="../style.css?v={CSS_VERSION}">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <p class="site-title"><a href="../">あさりちゃんの部屋</a></p>
+    <nav class="site-nav"><a href="../#chara">キャラクター大図鑑</a></nav>
+  </div>
+</header>
+
+<main class="wrap pickup">
+  <h1 class="feature-title">ランダムピックアップ</h1>
+  <p class="feature-lead">pixivに投稿したイラストから、1枚をランダムに表示しています。絵をタップするとpixivで開きます。</p>
+
+  <a class="pickup-card" id="pick" href="https://www.pixiv.net/users/7204909" target="_blank" rel="noopener" hidden>
+    <img id="pick-img" alt="">
+  </a>
+  <p class="pickup-hint" id="pick-hint" hidden>タップでpixivの作品ページへ</p>
+  <button type="button" class="pickup-next" id="pick-next" hidden>ほかの絵を見る</button>
+  <p class="gallery-empty" id="pick-empty">イラストは準備中です。</p>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p><a class="adult-link" href="../r18/">成人向けコンテンツ（18歳以上）</a></p>
+    <p>&copy; あさりちゃんの部屋</p>
+  </div>
+</footer>
+
+<script>
+  (function () {{
+    var items = {data};
+    if (!items.length) return;
+    // シャッフルして順に見せる（一巡するまで同じ絵は出ない）
+    for (var i = items.length - 1; i > 0; i--) {{
+      var j = Math.floor(Math.random() * (i + 1)); var t = items[i]; items[i] = items[j]; items[j] = t;
+    }}
+    var pos = 0;
+    var a = document.getElementById("pick"), img = document.getElementById("pick-img");
+    var next = document.getElementById("pick-next");
+    function show() {{
+      var it = items[pos % items.length];
+      img.src = it.src;
+      img.alt = "pixiv作品 " + it.id;
+      a.href = "https://www.pixiv.net/artworks/" + it.id;
+      var pre = new Image(); pre.src = items[(pos + 1) % items.length].src;  // 次の絵を先読み
+    }}
+    document.getElementById("pick-empty").hidden = true;
+    a.hidden = false; document.getElementById("pick-hint").hidden = false;
+    next.hidden = items.length < 2;
+    next.addEventListener("click", function () {{ pos++; show(); }});
+    show();
+  }})();
+</script>
+</body>
+</html>
+"""
+
+
 def main():
     chars = json.loads(DATA.read_text(encoding="utf-8"))["characters"]
     for i, c in enumerate(chars):
@@ -470,6 +559,11 @@ def main():
 
     (ROOT / "r18" / "index.html").write_text(r18_index(chars), encoding="utf-8")
     print("built r18/index.html と r18/chara/*/index.html")
+
+    out = ROOT / "pickup" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(pickup_page(), encoding="utf-8")
+    print(f"built pickup/index.html  ({len(pickup_files())}枚)")
 
 
 if __name__ == "__main__":
